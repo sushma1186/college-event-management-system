@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Register - Event Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            height:100vh;
+            background: linear-gradient(135deg,#1f4037,#99f2c8);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-family:Arial;
+        }
+
+        .register-card{
+            width:420px;
+            background:white;
+            padding:40px;
+            border-radius:12px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .register-title{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="register-card">
+
+    <h3 class="register-title">
+        Student Registration
+    </h3>
+
+    <!-- ERROR MESSAGE FOR DUPLICATE USER -->
+    <div th:if="${error}" class="alert alert-danger text-center">
+        <span th:text="${error}"></span>
+    </div>
+
+    <form action="/register" method="post">
+
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text"
+                   name="name"
+                   class="form-control"
+                   placeholder="Enter your name"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email"
+                   name="email"
+                   class="form-control"
+                   placeholder="Enter email"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password"
+                   name="password"
+                   class="form-control"
+                   placeholder="Enter password"
+                   required>
+        </div>
+
+        <button class="btn btn-primary w-100">
+            Register
+        </button>
+
+    </form>
+
+    <div class="text-center mt-3">
+
+        <p>
+            Already have an account?
+            <a href="/login">Login here</a>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

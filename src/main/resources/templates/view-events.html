@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Available Events</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background: linear-gradient(135deg,#141e30,#243b55);
+            font-family: Arial;
+        }
+
+        .navbar{
+            background:black;
+        }
+
+        .event-card{
+            transition:0.3s;
+        }
+
+        .event-card:hover{
+            transform:scale(1.03);
+        }
+
+        .card-img-top{
+            height:200px;
+            object-fit:cover;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark">
+    <div class="container-fluid">
+
+        <span class="navbar-brand">College Event Portal</span>
+
+        <div>
+
+            <a th:href="@{/student/my-events(email=${studentEmail})}"
+               class="btn btn-warning me-2">
+                My Events
+            </a>
+
+            <a href="/login"
+               class="btn btn-danger">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container mt-4">
+
+
+    <div th:if="${param.error != null and param.error.contains('alreadyRegistered')}"
+         class="alert alert-danger text-center">
+        You have already registered for this event!
+    </div>
+
+    <div th:if="${param.error != null and param.error.contains('seatsFull')}"
+         class="alert alert-danger text-center">
+        Seats are not available for this event!
+    </div>
+
+
+    <div th:if="${param.success}"
+         class="alert alert-success text-center">
+        Successfully registered!
+    </div>
+
+
+    <h3 class="text-white text-center mb-4">
+        Available Events
+    </h3>
+
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4"
+             th:each="event : ${events}">
+
+            <div class="card event-card shadow-lg">
+
+                <img th:src="${event.imageUrl}"
+                     class="card-img-top">
+
+                <div class="card-body">
+
+                    <h5 th:text="${event.name}"></h5>
+
+                    <p>
+
+                        <b>Category:</b>
+                        <span th:text="${event.category}"></span><br>
+
+                        <b>Venue:</b>
+                        <span th:text="${event.venue}"></span><br>
+
+                        <b>Date:</b>
+                        <span th:text="${event.date}"></span><br>
+
+                        <b>Time:</b>
+                        <span th:text="${event.time}"></span><br>
+
+                        <b>Fee:</b>
+                        ₹ <span th:text="${event.fee}"></span><br>
+
+                        <b>Seats Left:</b>
+                        <span th:text="${event.availableSeats}"></span>
+
+                    </p>
+
+
+                    <div th:if="${event.fee > 0}">
+
+                        <form th:action="@{/student/payment}" method="get">
+
+                            <input type="hidden"
+                                   name="eventId"
+                                   th:value="${event.id}">
+
+                            <input type="hidden"
+                                   name="email"
+                                   th:value="${studentEmail}">
+
+                            <button class="btn btn-success w-100">
+                                Pay & Register
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <div th:if="${event.fee == 0}">
+
+                        <form th:action="@{/student/register-event}" method="post">
+
+                            <input type="hidden"
+                                   name="eventId"
+                                   th:value="${event.id}">
+
+                            <input type="hidden"
+                                   name="email"
+                                   th:value="${studentEmail}">
+
+                            <button class="btn btn-primary w-100">
+                                Register Free
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
