@@ -75,3 +75,21 @@ The project includes testing for:
 ## Conclusion
 
 The Event Management System provides an efficient and user-friendly solution for digital event management, reducing manual work and improving accessibility for both students and administrators.
+
+
+## Screenshots
+
+### Login Page
+![Login Page](screenshots/login-page.png)
+
+### Available Events
+![Available Events](screenshots/available-events.png)
+
+### My Events
+![My Events](screenshots/my-events.png)
+
+### Admin Add Event
+![Admin Add Event](screenshots/admin-add-event.png)
+
+### Registered Students
+![Registered Students](screenshots/registered-students.png)
